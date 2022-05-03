@@ -1,0 +1,57 @@
+{
+  "name": "@quick-toolkit/http",
+  "version": "1.0.0",
+  "description": "The HTTP module takes the corresponding data from the class-transformer conversion instance and sends a request to the server. This module uses Axios.",
+  "main": "dist/cjs",
+  "types": "dist/types",
+  "scripts": {
+    "build:clean": "rimraf dist && rimraf docs",
+    "build:cjs": "tsc --project tsconfig.prod.cjs.json",
+    "build:types": "tsc --project tsconfig.prod.types.json",
+    "build:umd": "webpack --config ./webpack.config.js",
+    "build:doc": "typedoc --options ./typedoc.json",
+    "release": "yarn build:clean &&  yarn build:cjs && yarn build:umd  && yarn build:types &&  yarn  build:doc",
+    "test": "mocha -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quick-toolkit/http.git"
+  },
+  "keywords": [
+    "quick-toolkit",
+    "http",
+    "axios"
+  ],
+  "author": "YunlongRan<549510622@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quick-toolkit/http/issues"
+  },
+  "homepage": "https://github.com/quick-toolkit/http#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@quick-toolkit/class-transformer": "^1.0.2",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^8.2.3",
+    "@types/node": "^16.11.3",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "axios": "^0.24.0",
+    "babel-loader": "^8.2.3",
+    "chai": "^4.3.4",
+    "eslint": "7",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "mocha": "^9.1.3",
+    "moment": "^2.29.1",
+    "prettier": "^2.4.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.3.1",
+    "typedoc": "^0.22.7",
+    "typescript": "^4.4.4",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1"
+  }
+}

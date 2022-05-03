@@ -10,7 +10,7 @@
     "build:types": "tsc --project tsconfig.prod.types.json",
     "build:umd": "webpack --config ./webpack.config.js",
     "build:doc": "typedoc --options ./typedoc.json",
-    "release": "yarn build:clean &&  yarn build:cjs && yarn build:umd  && yarn build:types &&  yarn  build:doc",
+    "release": "yarn build:clean &&  yarn build:cjs && yarn build:umd  && yarn build:types",
     "test": "mocha -w"
   },
   "repository": {

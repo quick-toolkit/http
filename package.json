@@ -1,6 +1,6 @@
 {
   "name": "@quick-toolkit/http",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The HTTP module takes the corresponding data from the class-transformer conversion instance and sends a request to the server. This module uses Axios.",
   "main": "dist/cjs",
   "types": "dist/types",

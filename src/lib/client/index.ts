@@ -81,7 +81,7 @@ export class HttpClient extends Axios {
         }
       });
       Object.keys(pathVars).forEach((key) => {
-        config.url = config.url?.replace(
+        config.url = (config.url || '')?.replace(
           new RegExp(`{s*${key}s*}`),
           pathVars[key]
         );

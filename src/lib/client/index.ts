@@ -66,19 +66,20 @@ export class HttpClient extends Axios {
       const pathVars: Record<string, string> = {};
       propertyMirrors.forEach((propertyMirror) => {
         const value = data[propertyMirror.propertyKey as keyof D] as any;
-        if (value !== undefined && value !== '') {
-          propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
-            if (m.metadata.in === 'path') {
-              pathVars[propertyMirror.propertyKey as string] = value;
-              config.url = o.metadata.url;
-            } else if (m.metadata.in === 'header') {
+        propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
+          if (m.metadata.in === 'path') {
+            pathVars[propertyMirror.propertyKey as string] = value || '';
+          } else if (m.metadata.in === 'header') {
+            if (value !== undefined && value !== '') {
               config.headers = config.headers || {};
               config.headers[propertyMirror.propertyKey as any] = value;
-            } else {
+            }
+          } else {
+            if (value !== undefined && value !== '') {
               newData[propertyMirror.propertyKey] = value;
             }
-          });
-        }
+          }
+        });
       });
       Object.keys(pathVars).forEach((key) => {
         config.url = (config.url || '')?.replace(

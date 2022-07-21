@@ -74,6 +74,9 @@ export class HttpClient extends Axios {
               config.headers = config.headers || {};
               config.headers[propertyMirror.propertyKey as any] = value;
             }
+          } else if (m.metadata.in === 'query') {
+            config.params = config.params || {};
+            config.params[propertyMirror.propertyKey as any] = value;
           } else {
             if (value !== undefined && value !== '') {
               newData[propertyMirror.propertyKey] = value;

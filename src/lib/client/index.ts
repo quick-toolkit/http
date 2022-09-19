@@ -61,6 +61,7 @@ export class HttpClient extends Axios {
       if (o.metadata.contentType) {
         config.headers['Content-Type'] = o.metadata.contentType;
       }
+      const newParam: Record<PropertyKey, any> = {};
       const newData: Record<PropertyKey, any> = {};
       const propertyMirrors = classMirror.getAllProperties();
       const pathVars: Record<string, string> = {};
@@ -68,15 +69,17 @@ export class HttpClient extends Axios {
         const value = data[propertyMirror.propertyKey as keyof D] as any;
         propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
           if (m.metadata.in === 'path') {
-            pathVars[propertyMirror.propertyKey as string] = value || '';
+            pathVars[propertyMirror.propertyKey as string] =
+              value !== undefined ? value : '';
           } else if (m.metadata.in === 'header') {
             if (value !== undefined && value !== '') {
               config.headers = config.headers || {};
               config.headers[propertyMirror.propertyKey as any] = value;
             }
           } else if (m.metadata.in === 'query') {
-            config.params = config.params || {};
-            config.params[propertyMirror.propertyKey as any] = value;
+            if (value !== undefined && value !== '') {
+              newParam[propertyMirror.propertyKey] = value;
+            }
           } else {
             if (value !== undefined && value !== '') {
               newData[propertyMirror.propertyKey] = value;
@@ -92,12 +95,16 @@ export class HttpClient extends Axios {
       });
 
       if (['post', 'put', 'patch'].includes(config.method)) {
+        config.params = newParam;
         config.data = newData;
       }
 
       // nobody
       if (['delete', 'get', 'head', 'options'].includes(config.method)) {
-        config.params = newData;
+        config.params = {
+          ...newData,
+          ...newParam,
+        };
       }
     });
     if (!filter.length) {
